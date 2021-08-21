@@ -62,5 +62,9 @@ li {
 .list_row {
   display: flex;
   align-items: center;
-  padding-bottom: 4px;
+  padding-bottom: 0;
+}
+
+.text_content {
+  margin: 0;
 }
