@@ -5,6 +5,16 @@ const onClickAdd = () => {
   const inputText = document.getElementById("add_text").value;
   document.getElementById("add_text").value = "";
 
+  createFromWorkingTodo(inputText);
+};
+
+// 未完了リストから指定の要素を削除
+const deleteFromWorkingTodo = (target) => {
+  document.getElementById("working_todo").removeChild(target);
+};
+
+// 未完了リストに追加する関数
+const createFromWorkingTodo = (text) => {
   // li作成
   const li = document.createElement("li");
 
@@ -15,7 +25,7 @@ const onClickAdd = () => {
   // p作成
   const p = document.createElement("p");
   p.className = "text_content";
-  p.innerText = inputText;
+  p.innerText = text;
 
   // buttonタグ（完了）作成
   const completeButton = document.createElement("button");
@@ -46,6 +56,16 @@ const onClickAdd = () => {
     // buttonタグを作成
     const backButton = document.createElement("button");
     backButton.innerText = "戻す";
+    backButton.addEventListener("click", () => {
+      // 押された戻すボタンの親タグ（li）を完了リストから削除
+      const backButtonParent = backButton.parentNode;
+      const deleteTarget = backButtonParent.parentNode;
+      document.getElementById("complate_todo").removeChild(deleteTarget);
+
+      // テキストを取得
+      const text = backButton.parentNode.firstElementChild.innerText;
+      createFromWorkingTodo(text);
+    });
 
     // divタグの子要素に各要素を設定
     addTarget.appendChild(completeDiv);
@@ -74,11 +94,6 @@ const onClickAdd = () => {
 
   // 作業中TODOに追加
   document.getElementById("working_todo").appendChild(li);
-};
-
-// 未完了リストから指定の要素を削除
-const deleteFromWorkingTodo = (target) => {
-  document.getElementById("working_todo").removeChild(target);
 };
 
 document
